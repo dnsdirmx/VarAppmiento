@@ -21,7 +21,7 @@ public class PhotographActivity extends AppCompatActivity {
         cameraPreview = (FrameLayout)findViewById(R.id.cameraPreview);
         //cambiando la actividad
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        mPhotographSurfaceView = new PhotographSurfaceView(this);
+        mPhotographSurfaceView = new PhotographSurfaceView(this,cameraPreview);
         cameraPreview.addView(mPhotographSurfaceView);
 
    }
