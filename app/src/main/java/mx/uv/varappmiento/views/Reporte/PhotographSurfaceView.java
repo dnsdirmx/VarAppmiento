@@ -2,7 +2,10 @@ package mx.uv.varappmiento.views.Reporte;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.os.Environment;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -11,9 +14,16 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+import mx.uv.varappmiento.Global;
 
 /**
  * Created by willo on 17/07/2016.
@@ -23,9 +33,13 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
     private SurfaceHolder surfaceHolder;
     private FrameLayout layout;
     private Camera.Parameters parameters;
+    private File pictureFile;
+    private byte[] data;
 
     public PhotographSurfaceView(Context context, FrameLayout layout) {
         super(context);
+        pictureFile = null;
+        data = null;
         this.layout = layout;
         releaseCameraAndPreview();
         camera = checkDeviceCamera();
@@ -136,5 +150,59 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
             return null;
         }
         return mCamera;
+    }
+
+    public void takePhoto()
+    {
+        camera.takePicture(null, null, mPicture);
+    }
+    Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            PhotographSurfaceView.this.data = data;
+        }
+    };
+    public boolean savePicture()
+    {
+        File pictureFile = getOutputMediaFile();
+        if(pictureFile == null || data == null)
+            return false;
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            fos.write(data);
+            fos.close();
+            data = null;
+            pictureFile = null;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                Global.APP_NAME);
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d(Global.APP_NAME, "failed to create directory");
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+        File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".jpg");
+
+        return mediaFile;
+    }
+
+    public void resetPreview() {
+        camera.stopPreview();
+        camera.startPreview();
     }
 }

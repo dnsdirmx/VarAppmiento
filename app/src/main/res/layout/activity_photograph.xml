@@ -19,5 +19,37 @@
         android:layout_alignParentStart="true">
 
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:background="@null"
+            android:id="@+id/btnAceptar"
+            android:src="@drawable/ic_photo_camera_white_48dp"
+            android:layout_gravity="center_horizontal|bottom" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnContinuar"
+            android:layout_gravity="right|bottom"
+            android:src="@drawable/ic_navigate_next_white_48dp"
+            android:background="@null" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnRetomar"
+            android:background="@null"
+            android:src="@drawable/ic_refresh_white_48dp"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAgregar"
+            android:layout_gravity="left|bottom"
+            android:src="@drawable/ic_add_a_photo_white_48dp"
+            android:background="@null" />
     </FrameLayout>
 </RelativeLayout>
