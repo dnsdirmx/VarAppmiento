@@ -11,6 +11,7 @@ import com.orm.SugarRecord;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,7 +83,6 @@ public class Imagen extends SugarRecord implements Pojo{
 
         try {
             Context context = MainController.getInstance().getView().getApplicationContext();
-
             outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
 
             long fileSizeDownloaded = 0;
@@ -97,6 +97,9 @@ public class Imagen extends SugarRecord implements Pojo{
                 fileSizeDownloaded += read;
                 Log.d("files", "file download: " + fileSizeDownloaded + " of " + length);
             }
+
+            this.setLocalpath(MainController.getInstance().getContext().getFilesDir() + File.pathSeparator + this.getNombre());
+
             outputStream.flush();
             outputStream.close();
         } catch (Exception e) {

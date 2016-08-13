@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -20,7 +21,7 @@ import retrofit2.http.Path;
  * Created by willo on 27/06/2016.
  */
 public interface ImagenEndpointInterface {
-    @GET("imagen/")
+    @GET("imagen")
     Call<List<Imagen>> getImagenes();
     @GET("imagen/{id}")
     Call<Imagen> getImagen(@Header("Authorization") String authorization, @Path("id") Integer id);
@@ -30,6 +31,8 @@ public interface ImagenEndpointInterface {
     Call<Imagen> updateImagen(@Header("Authorization") String authorization, @Path("id") Integer id, @Body Imagen imagen);
     @DELETE("imagen/{id}")
     Call<Response> deleteImagen(@Header("Authorization") String authorization,@Path("id") Integer id);
+
+    @Multipart
     @POST("imagen/{id}/file")
     Call<Imagen> uploadImagen(@Header("Authorization") String authorization, @Path("id") Integer id, @Part("imagen") RequestBody imagen);
     @GET("imagen/{id}/file")
