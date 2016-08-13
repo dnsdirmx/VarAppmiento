@@ -4,13 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import mx.uv.varappmiento.R;
+import mx.uv.varappmiento.views.BaseActivity;
 
-public class PhotographActivity extends AppCompatActivity {
+public class PhotographActivity extends BaseActivity {
 
     private PhotographSurfaceView mPhotographSurfaceView;
     private FrameLayout cameraPreview;
@@ -21,6 +23,10 @@ public class PhotographActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photograph);
 
@@ -88,4 +94,9 @@ public class PhotographActivity extends AppCompatActivity {
             }
         });
    }
+
+    protected boolean useToolbar()
+    {
+        return false;
+    }
 }

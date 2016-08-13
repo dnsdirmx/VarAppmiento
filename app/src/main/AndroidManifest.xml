@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mx.uv.varappmiento">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -21,8 +24,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.ReporteActivity" />
-        <activity android:name=".views.Reporte.PhotographActivity"></activity>
+        <activity android:name=".views.Reporte.ReporteActivity" />
+        <activity android:name=".views.Reporte.PhotographActivity" />
+
+        <meta-data
+            android:name="DATABASE"
+            android:value="varappmiento.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="mx.uv.varappmiento" />
+
+        <activity android:name=".views.Informante.SignInActivity" />
+        <activity android:name=".views.Informante.SignUpActivity" />
+        <activity android:name=".views.BaseActivity" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".views.Informante.UpdateInformanteActivity" />
+        <activity android:name=".views.AsistenciaVaramiento.OrdenesActivity"></activity>
     </application>
 
 </manifest>

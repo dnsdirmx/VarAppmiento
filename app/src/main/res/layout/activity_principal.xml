@@ -9,7 +9,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".views.PrincipalActivity">
-    <include layout="@layout/varapp_action_bar"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -17,7 +16,18 @@
         android:layout_height="wrap_content"
         android:text="Realizar reporte"
         android:id="@+id/btnReporte"
+        android:onClick="createReport"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="createReport"/>
+        android:layout_marginBottom="83dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ayudar en un varamiento"
+        android:id="@+id/btnAssistance"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="createAssistance" />
+
 </RelativeLayout>

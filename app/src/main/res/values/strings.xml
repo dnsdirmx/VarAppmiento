@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">VarAppmiento</string>
+    <string name="action_sign_up">Registrase</string>
+    <string name="prompt_name">Nombre</string>
+    <string name="prompt_email">Correo Electronico</string>
+    <string name="prompt_phoneNumber">Numero de Telefono</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_password_confirm">Confirma el Password</string>
+    <string name="action_sign_in_short">Password</string>
+    <string name="action_sign_in">Iniciar sesion</string>
+    <string name="nombre_invalido">El nombre no es valido</string>
+    <string name="error_invalid_email">Email invalido</string>
+    <string name="telefono_invalido">Error en el telefono</string>
+    <string name="error_invalid_password">Password invalido</string>
+    <string name="error_password_no_coincide">El password no coincide</string>
+    <string name="prompt_current_password">Password actual</string>
+    <string name="prompt_new_password">Nuevo password</string>
+    <string name="prompt_new_password_confirm">Confirma el nuevo password</string>
+    <string name="action_update_informante">Actualizar datos</string>
+    <string name="error_error_password">Password incorrecto</string>
+    <string name="synchronize">Sincronizar</string>
 </resources>
