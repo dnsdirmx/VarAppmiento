@@ -98,7 +98,7 @@ public class Imagen extends SugarRecord implements Pojo{
                 Log.d("files", "file download: " + fileSizeDownloaded + " of " + length);
             }
 
-            this.setLocalpath(MainController.getInstance().getContext().getFilesDir() + File.pathSeparator + this.getNombre());
+            this.setLocalpath(MainController.getInstance().getContext().getFilesDir() + File.separator + this.getNombre());
 
             outputStream.flush();
             outputStream.close();

@@ -17,17 +17,16 @@
         android:text="Realizar reporte"
         android:id="@+id/btnReporte"
         android:onClick="createReport"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="83dp" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ayudar en un varamiento"
         android:id="@+id/btnAssistance"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="createAssistance" />
+        android:onClick="createAssistance"
+        android:layout_below="@+id/btnReporte"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

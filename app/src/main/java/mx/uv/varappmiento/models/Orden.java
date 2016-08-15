@@ -58,4 +58,9 @@ public class Orden extends SugarRecord implements Pojo {
     {
         return Orden.toJson(this);
     }
+
+    public Imagen getImagen()
+    {
+        return Imagen.findById(Imagen.class,this.getImagen_id());
+    }
 }

@@ -26,13 +26,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
 
     //biblioteca ORM
-    compile 'com.github.satyan:sugar:1.4'
+    compile 'com.github.satyan:sugar:1.5'
 
     //biblioteca para consumir api rest
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
 
     //biblioteca para parseo de json
-    compile 'com.squareup.retrofit2:converter-gson:2.+'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
 
 
@@ -40,6 +40,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
 
     compile 'com.android.support:recyclerview-v7:23.4.0'
+
+    compile 'com.android.support:cardview-v7:23.4.0'
+
     compile 'com.getbase:floatingactionbutton:1.2.1'
     compile 'de.hdodenhof:circleimageview:1.2.1'
 

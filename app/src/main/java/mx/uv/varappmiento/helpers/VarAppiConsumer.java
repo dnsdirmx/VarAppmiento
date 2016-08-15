@@ -28,7 +28,8 @@ public class VarAppiConsumer {
     }
 
     private VarAppiConsumer() {
-        gson = new GsonBuilder().create();
+        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
