@@ -1,6 +1,8 @@
 package mx.uv.varappmiento.views.AsistenciaVaramiento;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +53,7 @@ public class OrdenesAdapter extends android.support.v7.widget.RecyclerView.Adapt
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final OrdenViewHolder ordenHolder = (OrdenViewHolder) holder;
         Orden actual = null;
         ordenHolder.nombre.setText(ordenes.get(position).getOrden());
@@ -59,6 +61,7 @@ public class OrdenesAdapter extends android.support.v7.widget.RecyclerView.Adapt
         ordenHolder.imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                lanzaRecomendaciones(ordenes.get(position));
                 Toast.makeText(MainController.getInstance().getContext(),"Seleccionado orden:" + ordenHolder.nombre.getText(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -67,5 +70,13 @@ public class OrdenesAdapter extends android.support.v7.widget.RecyclerView.Adapt
     @Override
     public int getItemCount() {
         return ordenes.size();
+    }
+
+    public void lanzaRecomendaciones(Orden orden)
+    {
+        Intent recomendaciones = new Intent( MainController.getInstance().getContext(),RecomendacionActivity.class);
+        Log.d("ordenes","Orden" + orden.getId());
+        recomendaciones.putExtra(RecomendacionActivity.ORDEN_ID,orden.getId().intValue());
+        MainController.getInstance().getContext().startActivity(recomendaciones);
     }
 }

@@ -55,6 +55,8 @@
         <activity android:name=".views.AsistenciaVaramiento.OrdenesActivity" />
         a
         <service android:name=".services.SyncService" />
+
+        <activity android:name=".views.AsistenciaVaramiento.RecomendacionActivity"></activity>
     </application>
 
 </manifest>

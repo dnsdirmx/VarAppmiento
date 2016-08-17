@@ -50,7 +50,7 @@ public class SyncService extends IntentService{
         Log.d("SERVICE","Lanzando metodo para sincronizzar ordenes");
         SugarContext.init(MainController.getInstance().getContext());
         syncOrdenes();
-
+        SyncRecomendaciones();
 
 
 

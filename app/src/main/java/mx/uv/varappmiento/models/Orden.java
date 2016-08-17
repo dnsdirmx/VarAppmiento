@@ -7,6 +7,9 @@ import com.orm.SugarRecord;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by willo on 27/07/2016.
@@ -62,5 +65,22 @@ public class Orden extends SugarRecord implements Pojo {
     public Imagen getImagen()
     {
         return Imagen.findById(Imagen.class,this.getImagen_id());
+    }
+
+    public ArrayList<Recomendacion> getRecomendaciones()
+    {
+        ArrayList<Recomendacion> lRecomendaciones = null;
+        Iterator<Recomendacion> recomendaciones = Recomendacion.findAll(Recomendacion.class);
+        lRecomendaciones = new ArrayList<Recomendacion>();
+        while(recomendaciones.hasNext())
+        {
+            Recomendacion recomendacion = recomendaciones.next();
+            if(recomendacion.getOrden_id() == this.getId().intValue())
+            {
+                lRecomendaciones.add(recomendacion);
+            }
+        }
+
+        return lRecomendaciones;
     }
 }

@@ -36,4 +36,9 @@ public class Recomendacion extends SugarRecord implements Pojo {
     public void setOrden_id(Integer orden_id) {
         this.orden_id = orden_id;
     }
+
+    public Imagen getImagen()
+    {
+        return Imagen.findById(Imagen.class,this.getImagen_id());
+    }
 }
