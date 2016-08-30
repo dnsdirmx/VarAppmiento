@@ -23,23 +23,27 @@
             android:text="Medium Text"
             android:id="@+id/txtDescripcion" />
 
-        <LinearLayout
+        <GridLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="1">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="@string/btnAnterior"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
                 android:id="@+id/btnAnterior" />
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="New Button"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:text="@string/btnSiguiente"
                 android:id="@+id/btnSiguiente" />
-        </LinearLayout>
+        </GridLayout>
     </LinearLayout>
 </ScrollView>

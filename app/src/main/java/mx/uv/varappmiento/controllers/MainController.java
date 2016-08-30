@@ -1,10 +1,12 @@
 package mx.uv.varappmiento.controllers;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.orm.SugarContext;
 
 import mx.uv.varappmiento.views.BaseActivity;
+import mx.uv.varappmiento.views.PrincipalActivity;
 
 /**
  * Created by willo on 27/07/2016.
@@ -44,5 +46,11 @@ public class MainController extends Controller {
         currentController.setView(activity);
         if(!currentController.isLogin())
             currentController.startSignIn();
+    }
+
+    public void lanzarInicio()
+    {
+        Intent intent = new Intent(context,PrincipalActivity.class);
+        context.startActivity(intent);
     }
 }

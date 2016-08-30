@@ -19,4 +19,9 @@
     <string name="action_update_informante">Actualizar datos</string>
     <string name="error_error_password">Password incorrecto</string>
     <string name="synchronize">Sincronizar</string>
+    <string name="ir_menu">Ir al inicio</string>
+
+    <string name="btnSiguiente">Siguiente</string>
+    <string name="btnAnterior">Anterior</string>
+    <string name="reporte_title">Reporte</string>
 </resources>
