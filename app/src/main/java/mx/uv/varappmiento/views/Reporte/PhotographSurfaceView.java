@@ -3,8 +3,6 @@ package mx.uv.varappmiento.views.Reporte;
 import android.content.Context;
 import android.hardware.Camera;
 import android.os.Environment;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
@@ -19,11 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import mx.uv.varappmiento.Global;
+import mx.uv.varappmiento.R;
+import mx.uv.varappmiento.controllers.MainController;
 
 /**
  * Created by willo on 17/07/2016.
@@ -184,10 +182,10 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                Global.APP_NAME);
+                MainController.getInstance().getContext().getString(R.string.app_name));
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                Log.d(Global.APP_NAME, "failed to create directory");
+                Log.d(MainController.getInstance().getContext().getString(R.string.app_name), "failed to create directory");
                 return null;
             }
         }
