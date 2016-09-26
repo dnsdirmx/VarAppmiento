@@ -28,7 +28,7 @@ public interface InformanteEndpointInterface {
     @PUT("informante/{id}")
     Call<Informante> updateInformante(@Header("Authorization") String authorization,@Path("id") Integer id, @Body Informante informante);
     @DELETE("informante/{id}")
-    Call<Response> deleteInformante(@Header("Authorization") String authorization,@Path("id") Integer id);
+    Call<ResponseBody> deleteInformante(@Header("Authorization") String authorization,@Path("id") Integer id);
 
     @POST("informante")
     Call<Informante> newInformante(@Body Informante informante);
@@ -36,4 +36,7 @@ public interface InformanteEndpointInterface {
     Call<Informante> existInformante(@Body Informante informante);
     @POST("informante/login")
     Call<Informante> loginInformante(@Body Informante informante);
+
+    @POST("informante/recovery")
+    Call<ResponseBody> recoveryPassword(@Body Informante informante);
 }

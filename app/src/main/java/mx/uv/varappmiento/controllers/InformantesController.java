@@ -13,8 +13,10 @@ import mx.uv.varappmiento.helpers.EndPoints.InformanteEndpointInterface;
 import mx.uv.varappmiento.helpers.VarAppiConsumer;
 import mx.uv.varappmiento.models.Informante;
 import mx.uv.varappmiento.models.Pojo;
+import mx.uv.varappmiento.views.Informante.RecoveryPasswordActivity;
 import mx.uv.varappmiento.views.Informante.SignInActivity;
 import mx.uv.varappmiento.views.Informante.SignUpActivity;
+import mx.uv.varappmiento.views.Informante.UpdateInformanteActivity;
 import mx.uv.varappmiento.views.PrincipalActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -313,6 +315,11 @@ public class InformantesController extends Controller {
         });
     }
 
+    public void startUpdateView()
+    {
+        Intent intent = new Intent(MainController.getInstance().getContext(), UpdateInformanteActivity.class);
+        MainController.getInstance().getContext().startActivity(intent);
+    }
     public boolean isValidPassword(String password) {
         if(this.getActive().getPassword().compareTo(password) == 0)
             return true;
@@ -327,7 +334,8 @@ public class InformantesController extends Controller {
                                  final VarAppiCallback viewCallback) {
         if(!getInstance().isValidPassword(currentPassword))
         {
-            viewCallback.onFailure(InformantesController.STATUS_PASSWORD_ERROR,null);
+            viewCallback.onFailure(InformantesController.STATUS_PASSWORD_ERROR,"Password inválido");
+            return;
         }
         final Informante informante = getActive();
 
@@ -335,7 +343,6 @@ public class InformantesController extends Controller {
         informante.setEmail(email);
         informante.setTelefono(telefono);
         informante.setPassword(newPassword);
-        informante.setApi_android_token("");
 
         VarAppiConsumer vapc = VarAppiConsumer.getInstance();
         InformanteEndpointInterface service = vapc.getRetrofit().create(InformanteEndpointInterface.class);
@@ -347,12 +354,51 @@ public class InformantesController extends Controller {
                 if(response.code() ==  200)
                 {
                     informante.save();//guarda el informante
+                    viewCallback.onResult(InformantesController.STATUS_CREATED,informante);
                 }
                 else
                     viewCallback.onFailure(InformantesController.STATUS_ERROR,response.message());
             }
             @Override
             public void onFailure(Call<Informante> call, Throwable t) {
+                viewCallback.onFailure(InformantesController.STATUS_ERROR,t.getMessage());
+            }
+        });
+    }
+
+    public void forgotPasswordView() {
+        Intent intent = new Intent(MainController.getInstance().getContext(),RecoveryPasswordActivity.class);
+        MainController.getInstance().getContext().startActivity(intent);
+    }
+
+    public void forgotPassword(String email, final VarAppiCallback viewCallback)
+    {
+        if(email.length() <= 0)
+        {
+            viewCallback.onFailure(InformantesController.STATUS_ERROR,"Email empty");
+            return;
+        }
+        final Informante informante = new Informante();
+        informante.setEmail(email);
+        VarAppiConsumer vapc = VarAppiConsumer.getInstance();
+        InformanteEndpointInterface service = vapc.getRetrofit().create(InformanteEndpointInterface.class);
+        Call<ResponseBody> callRecovery = service.recoveryPassword(informante);
+        callRecovery.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.code() != 200)
+                {
+                    viewCallback.onFailure(InformantesController.STATUS_ERROR,"El email no existe");
+                    return;
+                }
+                Log.d(MainController.getInstance().getContext().getString(R.string.app_name),"Response:" + response.code() + " body:" + response.body());
+                viewCallback.onResult(InformantesController.STATUS_CREATED,informante);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(MainController.getInstance().getContext().getString(R.string.app_name),"ResponseError: " + t.getMessage());
+
                 viewCallback.onFailure(InformantesController.STATUS_ERROR,t.getMessage());
             }
         });

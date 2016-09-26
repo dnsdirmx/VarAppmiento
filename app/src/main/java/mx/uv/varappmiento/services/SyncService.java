@@ -57,9 +57,9 @@ public class SyncService extends IntentService{
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_add_a_photo_white_48dp)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setSmallIcon(R.drawable.logo3)
+                        .setContentTitle("VarAppmiento")
+                        .setContentText("Sincronizando");
 // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, PrincipalActivity.class);
 

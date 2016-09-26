@@ -1,7 +1,9 @@
 package mx.uv.varappmiento.views.Informante;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,14 +16,20 @@ import mx.uv.varappmiento.controllers.InformantesController;
 import mx.uv.varappmiento.helpers.Callbacks.VarAppiCallback;
 import mx.uv.varappmiento.models.Informante;
 import mx.uv.varappmiento.models.Pojo;
+import mx.uv.varappmiento.views.BaseActivity;
 
-public class UpdateInformanteActivity extends AppCompatActivity {
+public class UpdateInformanteActivity extends BaseActivity {
+
+    ProgressDialog pd = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_informante);
 
+        Informante informante = InformantesController.getInstance().getActive();
+        if(informante == null)
+            finish();
 
         Button btnUpdateInformante = (Button) findViewById(R.id.btnUpdateInformante);
 
@@ -31,6 +39,14 @@ public class UpdateInformanteActivity extends AppCompatActivity {
                 updateInformante();
             }
         });
+
+        EditText txtNombre = (EditText) findViewById(R.id.txtNombre);
+        EditText txtEmail = (EditText) findViewById(R.id.txtEmail);
+        EditText txtTelefono = (EditText) findViewById(R.id.txtTelefono);
+
+        txtNombre.setText(informante.getNombre());
+        txtEmail.setText(informante.getEmail());
+        txtTelefono.setText(informante.getTelefono());
     }
 
     private void updateInformante() {
@@ -40,28 +56,44 @@ public class UpdateInformanteActivity extends AppCompatActivity {
             return;
         }
 
+        pd = ProgressDialog.show(this,"Informante","Actualizando información de contacto",false);
         EditText txtNombre = (EditText) findViewById(R.id.txtNombre);
         EditText txtEmail = (EditText) findViewById(R.id.txtEmail);
         EditText txtTelefono = (EditText) findViewById(R.id.txtTelefono);
         EditText txtPassword = (EditText) findViewById(R.id.txtPassword);
         EditText txtConfPassword = (EditText) findViewById(R.id.txtConfPassword);
         EditText txtCurrentPasssword = (EditText) findViewById(R.id.txtCurrentPassword);
+        String password = txtCurrentPasssword.getText().toString();
+        if(txtPassword.getText().toString().length() > 0 && InformantesController.getInstance().isValidPassword(txtCurrentPasssword.getText().toString()))
+            password = txtPassword.getText().toString();
         InformantesController.getInstance().updateInformante(txtNombre.getText().toString(),
                                                             txtEmail.getText().toString(),
                                                             txtTelefono.getText().toString(),
-                                                            txtPassword.getText().toString(),
+                                                            password,
                                                             txtCurrentPasssword.getText().toString(),
                 new VarAppiCallback() {
                     @Override
                     public void onResult(int status, Pojo object) {
+                        UpdateInformanteActivity.this.pd.dismiss();
+                        Toast.makeText(UpdateInformanteActivity.this,"Se han actualizado tus datos",Toast.LENGTH_SHORT).show();
+                        EditText txtPassword = (EditText) findViewById(R.id.txtPassword);
+                        EditText txtConfPassword = (EditText) findViewById(R.id.txtConfPassword);
+                        EditText txtCurrentPasssword = (EditText) findViewById(R.id.txtCurrentPassword);
+
+                        txtPassword.setText("");
+                        txtConfPassword.setText("");
+                        txtCurrentPasssword.setText("");
 
                     }
 
                     @Override
                     public void onFailure(int status, String message) {
-
+                        Log.d(UpdateInformanteActivity.this.getString(R.string.app_name),"Error: " + message);
+                        UpdateInformanteActivity.this.pd.dismiss();
+                        Toast.makeText(UpdateInformanteActivity.this,"Ha ocurrido un error: status: " + status + " mensaje: " + message,Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
     public boolean isValid()
@@ -102,20 +134,19 @@ public class UpdateInformanteActivity extends AppCompatActivity {
             txtTelefono.setError(getString(R.string.telefono_invalido));
             estado = false;
         }
-        if(!(txtPassword != null && txtPassword.length() > Informante.MINLEN))
-        {
-            txtPassword.setError(getString(R.string.error_invalid_password));
-            estado = false;
-        }
-        if(!(txtConfPassword.getText() != null && txtConfPassword.getText().length() > Informante.MINLEN ))
-        {
-            txtConfPassword.setError(getString(R.string.error_invalid_password));
-            estado = false;
-        }
-        if(!(txtPassword.getText().toString().compareTo(txtConfPassword.getText().toString())== 0))
-        {
-            txtConfPassword.setError(getString(R.string.error_password_no_coincide));
-            estado = false;
+        if(txtPassword.getText().toString().length() > 0 || txtConfPassword.getText().toString().length() > 0) {
+            if (!(txtPassword != null && txtPassword.length() > Informante.MINLEN)) {
+                txtPassword.setError(getString(R.string.error_invalid_password));
+                estado = false;
+            }
+            if (!(txtConfPassword.getText() != null && txtConfPassword.getText().length() > Informante.MINLEN)) {
+                txtConfPassword.setError(getString(R.string.error_invalid_password));
+                estado = false;
+            }
+            if (!(txtPassword.getText().toString().compareTo(txtConfPassword.getText().toString()) == 0)) {
+                txtConfPassword.setError(getString(R.string.error_password_no_coincide));
+                estado = false;
+            }
         }
         if(!(txtCurrentPasssword != null && txtCurrentPasssword.length() > Informante.MINLEN))
         {
@@ -125,6 +156,7 @@ public class UpdateInformanteActivity extends AppCompatActivity {
         if(!InformantesController.getInstance().isValidPassword(txtCurrentPasssword.getText().toString()))
         {
             txtCurrentPasssword.setError(getString(R.string.error_error_password));
+            estado = false;
         }
         return estado;
     }

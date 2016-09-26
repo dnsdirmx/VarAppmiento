@@ -13,7 +13,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
+            android:titleTextColor="@color/colorPrimaryLight"
+            android:title="hola"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             />
         <FrameLayout
@@ -27,5 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:headerLayout="@layout/header_navview"
         app:menu="@menu/menu_base"/>
 </android.support.v4.widget.DrawerLayout>

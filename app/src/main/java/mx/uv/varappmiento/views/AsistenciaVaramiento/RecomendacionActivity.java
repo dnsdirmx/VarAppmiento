@@ -41,7 +41,6 @@ public class RecomendacionActivity extends BaseActivity {
             if (lRecomendaciones.size() > 0) {
                 setRecomendacion(lRecomendaciones.get(0), false);
                 currentRecomendacion = 0;
-
             }
             else {
                 Toast.makeText(this, "Es necesario sincronizar la aplicación para obtener las ultimas actualizaciones", Toast.LENGTH_SHORT);
@@ -60,10 +59,19 @@ public class RecomendacionActivity extends BaseActivity {
                 sigRecomendacion();
             }
         });
+        Button btnAnterior = (Button) findViewById(R.id.btnAnterior);
+        btnAnterior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                antRecomendacion();
+            }
+        });
+        getSupportActionBar().setTitle("Recomendación");
     }
     public void setRecomendacion(Recomendacion recomendacion, boolean ultima)
     {
-        Log.d("recomensacion","rec " + ultima + ":" + recomendacion.getId());
+        Log.d("recomend" +
+                "acion","rec " + ultima + ":" + recomendacion.getId());
         ImageView imgRecomendacion = (ImageView) findViewById(R.id.imgRecomendacion);
         TextView descripcion = (TextView) findViewById(R.id.txtDescripcion);
         final Button btnSig = (Button) findViewById(R.id.btnSiguiente);
@@ -75,15 +83,19 @@ public class RecomendacionActivity extends BaseActivity {
         if(ultima) {
             btnSig.setText(getString(R.string.ir_menu));
         }
+        else
+            btnSig.setText(getString(R.string.btnSiguiente));
     }
 
     public void sigRecomendacion()
     {
+        Log.d("recomendacion","current : " + currentRecomendacion);
         if(lRecomendaciones.size() == (currentRecomendacion + 1))
             MainController.getInstance().lanzarInicio();
         else
         {
             currentRecomendacion++;
+            Log.d("recomendacion","current : " + currentRecomendacion);
             if(lRecomendaciones.size() == (currentRecomendacion + 1))
                 setRecomendacion(lRecomendaciones.get(currentRecomendacion),true);
             else
@@ -92,12 +104,15 @@ public class RecomendacionActivity extends BaseActivity {
     }
     public void antRecomendacion()
     {
+        Log.d("recomendacion","current : " + currentRecomendacion);
         if(currentRecomendacion <= 0)
         {
             this.finish();
         }
-        currentRecomendacion--;
-        setRecomendacion(lRecomendaciones.get(currentRecomendacion),false);
+        if((currentRecomendacion - 1) >= 0) {
+            currentRecomendacion--;
+            setRecomendacion(lRecomendaciones.get(currentRecomendacion), false);
+        }
     }
 
 }

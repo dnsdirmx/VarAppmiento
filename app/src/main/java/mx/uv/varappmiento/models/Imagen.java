@@ -3,6 +3,7 @@ package mx.uv.varappmiento.models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -111,6 +112,10 @@ public class Imagen extends SugarRecord implements Pojo{
     {
         Bitmap img = null;
         img = BitmapFactory.decodeFile(this.getLocalpath());
-        return img;
+
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        return Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
     }
 }

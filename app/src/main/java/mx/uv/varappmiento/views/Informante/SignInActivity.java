@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import mx.uv.varappmiento.R;
 import mx.uv.varappmiento.controllers.Controller;
 import mx.uv.varappmiento.controllers.InformantesController;
+import mx.uv.varappmiento.controllers.MainController;
 import mx.uv.varappmiento.helpers.Callbacks.VarAppiCallback;
 import mx.uv.varappmiento.models.Informante;
 import mx.uv.varappmiento.models.Pojo;
@@ -32,6 +33,14 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 SignIn();
+            }
+        });
+
+        TextView lbForgotPassword = (TextView) findViewById(R.id.lbForgotPassword);
+        lbForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InformantesController.getInstance().forgotPasswordView();
             }
         });
 

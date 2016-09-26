@@ -1,5 +1,7 @@
 package mx.uv.varappmiento.views.Reporte;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceView;
@@ -10,6 +12,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import mx.uv.varappmiento.R;
+import mx.uv.varappmiento.controllers.MainController;
+import mx.uv.varappmiento.controllers.ReportesController;
 import mx.uv.varappmiento.views.BaseActivity;
 
 public class PhotographActivity extends BaseActivity {
@@ -49,7 +53,7 @@ public class PhotographActivity extends BaseActivity {
         btnAceptar.setVisibility(View.VISIBLE);
         btnRetomar.setVisibility(View.GONE);
         btnAgregar.setVisibility(View.GONE);
-        btnContinuar.setVisibility(View.VISIBLE);
+        btnContinuar.setVisibility(View.GONE);
 
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +97,71 @@ public class PhotographActivity extends BaseActivity {
                 btnContinuar.setVisibility(View.VISIBLE);
             }
         });
+
+        btnContinuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                continuar();
+            }
+        });
+
+        muestraRecomendacion();
    }
+
+    private void muestraRecomendacion()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Recomendaciones")
+                .setMessage("Puedes ayudarnos a mejorar el reporte colocando un objeto de tamaño conocido(Por ejemplo : listado de objetos) al lado del mamifero marino varado para asi obtener el tamaño aproximado del mismo.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
+    private void continuar() {
+        new AlertDialog.Builder(this)
+                .setTitle("Especimen")
+                .setMessage("¿Deseas identificar la especie a la que pertenece el mamífero marino?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ReportesController.getInstance().iniciaIdentificaEspecie();
+
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ReportesController.getInstance().finishCameraView();
+                        PhotographActivity.this.finish();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
 
     protected boolean useToolbar()
     {
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!ReportesController.getInstance().reporteHasPhotos()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Reporte")
+                    .setMessage("Tienes que tomar al menos una fotografia")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .show();
+        }
+        else {
+            ReportesController.getInstance().finishCameraView();
+            PhotographActivity.this.finish();
+        }
     }
 }

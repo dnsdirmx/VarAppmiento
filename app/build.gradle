@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -21,28 +22,26 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-
-    compile 'com.android.support:appcompat-v7:23.4.0'
 
     //biblioteca ORM
-    compile 'com.github.satyan:sugar:1.5'
 
     //biblioteca para consumir api rest
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
 
     //biblioteca para parseo de json
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
-
-    compile 'com.getbase:floatingactionbutton:1.2.1'
-    compile 'de.hdodenhof:circleimageview:1.2.1'
-
     //compile 'com.android.support:support-v4:23.4.0'
 
-    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.github.satyan:sugar:1.5'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
+    compile 'com.getbase:floatingactionbutton:1.2.1'
+    compile 'de.hdodenhof:circleimageview:1.2.1'
+    compile 'com.google.android.gms:play-services-location:9.6.1'
+    compile 'com.google.android.gms:play-services-maps:9.6.1'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:support-vector-drawable:23.4.0'
+    testCompile 'junit:junit:4.12'
 }

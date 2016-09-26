@@ -22,6 +22,10 @@ import java.util.List;
 
 import mx.uv.varappmiento.R;
 import mx.uv.varappmiento.controllers.MainController;
+import mx.uv.varappmiento.controllers.ReportesController;
+import mx.uv.varappmiento.models.Especimen;
+import mx.uv.varappmiento.models.Especimen_Imagen;
+import mx.uv.varappmiento.models.Imagen;
 
 /**
  * Created by willo on 17/07/2016.
@@ -33,6 +37,8 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
     private Camera.Parameters parameters;
     private File pictureFile;
     private byte[] data;
+
+    private Especimen especimen = new Especimen();
 
     public PhotographSurfaceView(Context context, FrameLayout layout) {
         super(context);
@@ -170,7 +176,18 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
             fos.write(data);
             fos.close();
             data = null;
+            Imagen imagen = new Imagen();
+            imagen.setLocalpath(pictureFile.getAbsolutePath());
+            imagen.setNombre(pictureFile.getName());
+            imagen.setActualizado(new Date());
+            imagen.save();
+            especimen.setReporte(ReportesController.getInstance().getCurrentReporte());
+            Especimen_Imagen especimen_imagen = new Especimen_Imagen();
+            especimen_imagen.setImagen(imagen);
+            especimen_imagen.setEspecimen(especimen);
+            especimen_imagen.save();
             pictureFile = null;
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

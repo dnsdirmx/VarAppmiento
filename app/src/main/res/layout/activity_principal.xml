@@ -10,23 +10,41 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".views.PrincipalActivity">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Realizar reporte"
-        android:id="@+id/btnReporte"
-        android:onClick="createReport"
+        android:id="@+id/scrollView2"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:id="@+id/imgLogo"
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ayudar en un varamiento"
-        android:id="@+id/btnAssistance"
-        android:onClick="createAssistance"
-        android:layout_below="@+id/btnReporte"
-        android:layout_centerHorizontal="true" />
+            android:src="@drawable/logo3"/>
+            <Button
+                android:text="Realizar reporte"
+                android:id="@+id/btnReporte"
+                android:onClick="createReport"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                style="@style/Widget.AppCompat.Button" />
+            <Button
+            android:text="Ayudar en un varamiento"
+            android:id="@+id/btnAssistance"
+            android:onClick="createAssistance"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

@@ -55,7 +55,4 @@ public class NetworkConnection {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         return (networkInfo != null && networkInfo.isConnected());
     }
-
-
-
 }

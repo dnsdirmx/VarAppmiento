@@ -25,5 +25,7 @@ public class OrdenesActivity extends BaseActivity {
         ordenesRecView.setLayoutManager(ordenesLManager);
         ordenesAdapter = new OrdenesAdapter();
         ordenesRecView.setAdapter(ordenesAdapter);
+
+        getSupportActionBar().setTitle("Selecciona un orden");
     }
 }

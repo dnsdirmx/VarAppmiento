@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimaryDark"
+
+    tools:context="mx.uv.varappmiento.views.AboutActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+<!--
+            <TextView
+                android:text="@string/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtAppName"
+                android:textColor="@color/colorTextOverBlack"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" /> -->
+            <TextView
+                android:text="@string/app_description"
+                android:layout_gravity="center_vertical|right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtAppDescription"
+                android:textColor="@color/colorTextOverBlack"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="Versión: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtVersion"
+                    android:textColor="@color/colorTextOverBlack"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:text="@string/app_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtAppVersion"
+                    android:textColor="@color/colorTextOverBlack"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15px" />
+            <TextView
+                android:text="@string/app_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtAppDate"
+                android:textColor="@color/colorTextOverBlack"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15px" />
+            <TextView
+                android:text="@string/app_copyright"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtAppCopyright"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15px" />
+            <TextView
+                android:text="@string/app_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtAppContact"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
