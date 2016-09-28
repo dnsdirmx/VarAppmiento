@@ -26,13 +26,17 @@ public class PhotographAdapter extends RecyclerView.Adapter<PhotographAdapter.Ph
     ArrayList<Imagen> imagenes;
     public PhotographAdapter()
     {
+        getImagenes();
+    }
+    private void getImagenes()
+    {
         imagenes = new ArrayList<Imagen>();
         Reporte reporte = ReportesController.getInstance().getCurrentReporte();
         for (Especimen especimen:
                 reporte.getEspecimenes()) {
             List<Imagen> eimagenes = especimen.getImagenes();
             for (Imagen img:
-                 eimagenes) {
+                    eimagenes) {
                 imagenes.add(img);
             }
         }
@@ -54,6 +58,10 @@ public class PhotographAdapter extends RecyclerView.Adapter<PhotographAdapter.Ph
         if(imagenes != null)
             return imagenes.size();
         return 0;
+    }
+
+    public void updateData() {
+        getImagenes();
     }
 
     public static class PhotoViewHolder extends RecyclerView.ViewHolder {

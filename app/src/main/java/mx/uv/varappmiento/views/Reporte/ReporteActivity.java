@@ -23,6 +23,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.orm.dsl.Ignore;
 
 import mx.uv.varappmiento.R;
 import mx.uv.varappmiento.controllers.MainController;
@@ -35,8 +36,9 @@ import mx.uv.varappmiento.views.Reporte.PhotographSurfaceView;
 public class ReporteActivity extends BaseActivity {
     public static String ID_REPORTE_TEMP = "REPORTE_ID";
     private Reporte reporte;
+    PhotographAdapter photosAdapter;
     private GoogleMap googleMap;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,9 @@ public class ReporteActivity extends BaseActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvPhotos.setLayoutManager(llm);
+
+        photosAdapter = new PhotographAdapter();
+        rvPhotos.setAdapter(photosAdapter);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
@@ -103,7 +108,7 @@ public class ReporteActivity extends BaseActivity {
     }
 
     public void finishCameraView() {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(ReportesController.getInstance().getView())
                 .setTitle("Reporte")
                 .setMessage("¿Deseas tomar una fotografia mas a otro especimen?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -149,5 +154,10 @@ public class ReporteActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume()
+    {
+        photosAdapter.updateData();
+    }
 
 }

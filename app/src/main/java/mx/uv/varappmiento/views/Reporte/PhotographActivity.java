@@ -133,11 +133,15 @@ public class PhotographActivity extends BaseActivity {
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ReportesController.getInstance().finishCameraView();
-                        PhotographActivity.this.finish();
+
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
+    }
+    protected void terminarActividad()
+    {
+        PhotographActivity.this.finish();
     }
 
     protected boolean useToolbar()

@@ -19,7 +19,7 @@ import mx.uv.varappmiento.views.Reporte.ReporteActivity;
 public class ReportesController extends Controller {
     Reporte currentReporte = null;
     private static ReportesController ourInstance = new ReportesController();
-    private ReporteActivity view;
+    private ReporteActivity view = null;
 
     public static ReportesController getInstance() {
         return ourInstance;
