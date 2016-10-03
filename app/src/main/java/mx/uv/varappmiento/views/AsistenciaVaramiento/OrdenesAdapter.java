@@ -23,15 +23,19 @@ import mx.uv.varappmiento.models.Orden;
  */
 public class OrdenesAdapter extends android.support.v7.widget.RecyclerView.Adapter {
 
+    private OrdenesActivity activity;
     private ArrayList<Orden> ordenes;
 
-    public OrdenesAdapter()
+    public OrdenesAdapter(OrdenesActivity activity)
     {
-
+        this.activity = activity;
         Iterator<Orden> ordenesIt = Orden.findAll(Orden.class);
         ordenes = new ArrayList<Orden>();
+
         while(ordenesIt.hasNext())
             ordenes.add(ordenesIt.next());
+        if(ordenes.size() <= 0)
+            activity.errorCargandoOrdenes();
     }
 
     public class OrdenViewHolder extends RecyclerView.ViewHolder {

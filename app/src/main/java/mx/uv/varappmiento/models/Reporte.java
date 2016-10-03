@@ -20,6 +20,12 @@ public class Reporte extends SugarRecord implements Pojo{
 
     private Informante informante;
 
+
+    public Reporte()
+    {
+        this.creado = new Date();
+    }
+
     public Double getLatitud() {
         return latitud;
     }

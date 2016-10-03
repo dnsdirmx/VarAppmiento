@@ -16,6 +16,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,7 +28,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.orm.dsl.Ignore;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import mx.uv.varappmiento.R;
+import mx.uv.varappmiento.controllers.InformantesController;
 import mx.uv.varappmiento.controllers.MainController;
 import mx.uv.varappmiento.controllers.ReportesController;
 import mx.uv.varappmiento.models.Reporte;
@@ -38,6 +46,7 @@ public class ReporteActivity extends BaseActivity {
     private Reporte reporte;
     PhotographAdapter photosAdapter;
     private GoogleMap googleMap;
+    CheckBox cbTerminosCondiciones;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,28 +68,52 @@ public class ReporteActivity extends BaseActivity {
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(new MapaInnerClass());
-
+        cbTerminosCondiciones = (CheckBox) findViewById(R.id.cbTerminosCondiciones);
         Button btnEnviar = (Button) findViewById(R.id.btnEnvia);
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(ReporteActivity.this)
-                        .setTitle("Reporte")
-                        .setMessage("¿Estas seguro que deseas enviar el reporte?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                if (cbTerminosCondiciones.isChecked()){
+                    new AlertDialog.Builder(ReporteActivity.this)
+                            .setTitle("Reporte")
+                            .setMessage("¿Estas seguro que deseas enviar el reporte?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(ReporteActivity.this,"Error, No se ha podido enviar el reporte\nError: Recurso no disponible",Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no,new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .show();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .show();
+                }
+                else
+                {
+                    Toast.makeText(ReporteActivity.this,"No has aceptado los términos y condiciones",Toast.LENGTH_LONG).show();
+                }
             }
         });
+
+
+
+        TextView txtNombreInformante = (TextView) findViewById(R.id.txtNombreInformante);
+        txtNombreInformante.setText("Informante: " + InformantesController.getInstance().getActive().getNombre());
+
+        TextView txtFecha = (TextView) findViewById(R.id.txtFecha);
+
+        Date now = new Date();
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String today = formatter.format(now);
+
+        txtFecha.setText("Fecha del varamiento: " + today);
+
+
+
+
+
     }
 
     private void camaraNuevoEspecimen() {
@@ -108,7 +141,7 @@ public class ReporteActivity extends BaseActivity {
     }
 
     public void finishCameraView() {
-        new AlertDialog.Builder(ReportesController.getInstance().getView())
+        new AlertDialog.Builder(MainController.getInstance().getContext())
                 .setTitle("Reporte")
                 .setMessage("¿Deseas tomar una fotografia mas a otro especimen?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -157,6 +190,7 @@ public class ReporteActivity extends BaseActivity {
     @Override
     protected void onResume()
     {
+        super.onResume();
         photosAdapter.updateData();
     }
 

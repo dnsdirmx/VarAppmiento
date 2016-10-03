@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
@@ -59,6 +60,7 @@ public class PhotographActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mPhotographSurfaceView.savePicture();
+                Log.d("VarAppmiento","salve imagen");
                 mPhotographSurfaceView.resetPreview();
                 //preguntas para no me acuerdo
             }
@@ -78,6 +80,7 @@ public class PhotographActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mPhotographSurfaceView.savePicture();
+                Log.d("VarAppmiento","salve imagen");
                 mPhotographSurfaceView.resetPreview();
 
                 btnAceptar.setVisibility(View.VISIBLE);
@@ -133,7 +136,7 @@ public class PhotographActivity extends BaseActivity {
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ReportesController.getInstance().finishCameraView();
-
+                        PhotographActivity.this.finish();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_info)

@@ -2,6 +2,7 @@ package mx.uv.varappmiento.views.Reporte;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.uv.varappmiento.R;
+import mx.uv.varappmiento.controllers.MainController;
 import mx.uv.varappmiento.controllers.ReportesController;
 import mx.uv.varappmiento.models.Especimen;
 import mx.uv.varappmiento.models.Imagen;
@@ -32,6 +34,7 @@ public class PhotographAdapter extends RecyclerView.Adapter<PhotographAdapter.Ph
     {
         imagenes = new ArrayList<Imagen>();
         Reporte reporte = ReportesController.getInstance().getCurrentReporte();
+        Log.d(MainController.getInstance().getContext().getString(R.string.app_name),"Numero de especimenes" + reporte.getEspecimenes().size());
         for (Especimen especimen:
                 reporte.getEspecimenes()) {
             List<Imagen> eimagenes = especimen.getImagenes();
@@ -40,6 +43,8 @@ public class PhotographAdapter extends RecyclerView.Adapter<PhotographAdapter.Ph
                 imagenes.add(img);
             }
         }
+        Log.d(MainController.getInstance().getContext().getString(R.string.app_name),"Numero de imagenes" + imagenes.size());
+
     }
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

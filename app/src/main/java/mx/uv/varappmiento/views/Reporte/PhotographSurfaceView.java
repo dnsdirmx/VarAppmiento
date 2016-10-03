@@ -26,6 +26,7 @@ import mx.uv.varappmiento.controllers.ReportesController;
 import mx.uv.varappmiento.models.Especimen;
 import mx.uv.varappmiento.models.Especimen_Imagen;
 import mx.uv.varappmiento.models.Imagen;
+import mx.uv.varappmiento.models.Reporte;
 
 /**
  * Created by willo on 17/07/2016.
@@ -39,9 +40,10 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
     private byte[] data;
 
     private Especimen especimen = new Especimen();
-
     public PhotographSurfaceView(Context context, FrameLayout layout) {
         super(context);
+        especimen.setReporte(ReportesController.getInstance().getCurrentReporte());
+        especimen.save();
         pictureFile = null;
         data = null;
         this.layout = layout;
@@ -168,6 +170,8 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
     };
     public boolean savePicture()
     {
+        Log.d("VarAppmiento","Saludo " + ReportesController.getInstance().getCurrentReporte().getId());
+        Log.d(MainController.getInstance().getContext().getString(R.string.app_name),"Data: " + data);
         File pictureFile = getOutputMediaFile();
         if(pictureFile == null || data == null)
             return false;
@@ -182,6 +186,8 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
             imagen.setActualizado(new Date());
             imagen.save();
             especimen.setReporte(ReportesController.getInstance().getCurrentReporte());
+            especimen.save();
+            Log.d(MainController.getInstance().getContext().getString(R.string.app_name),"Id especimen: " + especimen.getId() );
             Especimen_Imagen especimen_imagen = new Especimen_Imagen();
             especimen_imagen.setImagen(imagen);
             especimen_imagen.setEspecimen(especimen);

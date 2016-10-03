@@ -34,6 +34,8 @@ public class ReportesController extends Controller {
     public void startReporteView()
     {
         currentReporte = new Reporte();
+        currentReporte.save();
+        Log.d(MainController.getInstance().getContext().getString(R.string.app_name),"Id reporte:" + currentReporte.getId());
         startServiceLocation();
         Intent intent = new Intent(MainController.getInstance().getContext(), ReporteActivity.class);
         MainController.getInstance().getContext().startActivity(intent);
@@ -68,7 +70,6 @@ public class ReportesController extends Controller {
     }
 
     public void finishCameraView() {
-        if(view != null)
-            view.finishCameraView();
+        view.finishCameraView();
     }
 }
