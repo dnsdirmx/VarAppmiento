@@ -84,15 +84,6 @@ public class PhotographSurfaceView extends SurfaceView implements SurfaceHolder.
             camera.setDisplayOrientation(180);
         }
 
-        //List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
-        //Camera.Size size = sizes.get(0);
-        /*for(int i=0;i<sizes.size();i++)
-        {
-            if(sizes.get(i).width > size.width)
-                size = sizes.get(i);
-        }*/
-       // parameters.setPictureSize(size.width, size.height);
-
         List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
         Camera.Size optimalSize = getOptimalPreviewSize(sizes, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
         parameters.setPreviewSize(optimalSize.width, optimalSize.height);
